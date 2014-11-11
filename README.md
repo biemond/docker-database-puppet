@@ -1,4 +1,4 @@
-# Oracle Database 12.1.0.1 Standard Edition Docker with puppet 3.7 on CentOS 6
+# Oracle Database 12.1.0.1 ( 12c ) Standard Edition Docker with puppet 3.7 on CentOS 6
 
 it will download minimal CentOS 6, Puppet 3.7 and all it dependencies
 
