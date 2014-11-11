@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+forge 'http://forge.puppetlabs.com'
+
+# modules from the Puppet Forge
+mod 'erwbgy/limits'
+mod 'hajee/easy_type'
+mod 'biemond/oradb'
+mod 'hajee/oracle'
+
