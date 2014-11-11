@@ -7,7 +7,7 @@ Docker image will be big and off course not supported by Oracle and like always 
 Configures Puppet and use librarian-puppet to download all the modules from puppet forge
 
 ## Result
-- Oracle Database Standard Edition 12.1.0.1, sys/Welcome01
+- Oracle Database Standard Edition 12.1.0.1, servicename orcl.example.com username sys/Welcome01
 - Tablespace MY_TS
 - Role apps
 - User TESTUSER
