@@ -39,4 +39,6 @@ EXPOSE 1521
 ADD startup.sh /
 RUN chmod 0755 /startup.sh
 
+WORKDIR /
+
 CMD bash -C '/startup.sh';'bash'
