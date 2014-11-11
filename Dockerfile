@@ -6,8 +6,6 @@ RUN yum-config-manager --enable centosplus
 
 RUN yum -y install hostname.x86_64 rubygems ruby-devel gcc git
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-#RUN yum group install "Base"
-#RUN yum group install "Development Tools"
 
 RUN rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs && \
     rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
@@ -38,4 +36,7 @@ RUN puppet apply /etc/puppet/site.pp --verbose --detailed-exitcodes || [ $? -eq 
 
 EXPOSE 1521
 
-CMD /bin/bash
+ADD startup.sh /
+RUN chmod 0755 /startup.sh
+
+CMD bash -C '/startup.sh';'bash'
