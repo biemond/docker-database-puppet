@@ -20,15 +20,13 @@ Download the following software from Oracle and Agree to the license
 
 Add them to this docker folder
 
-## Build image
+## Build image (~ 13GB)
 docker build -t oracle/database12101_centos6 .
 
-## Remove image
-docker rmi oracle/database12101_centos6
+Maybe compress it first, see the compress image chapter
 
 ## Start container
-
-default, will start the nodemanager & adminserver
+default, will start the listener & database server
 - docker run -i -t -p 1521:1521 oracle/database12101_centos6:latest
 
 with bash
@@ -36,8 +34,18 @@ with bash
 docker run -i -t -p 1521:1521 oracle/database12101_centos6:latest /bin/bash
 - /startup.sh
 
-## Boot2docker, MAC OSX
+## Remove image
+docker rmi oracle/database12101_centos6
 
+## Compress image (now ~7.6GB)
+- ID=$(docker run -d oracle/database12101_centos6:latest /bin/bash)
+- docker export $ID > database12101_centos6.tar
+- cat database12101_centos6.tar | docker import - database12101_centos6
+- docker run -i -t -p 1521:1521 database12101_centos6:latest /bin/bash
+- /startup.sh
+
+## Boot2docker, MAC OSX
+Probably run out of space
 Resize boot2docker image https://docs.docker.com/articles/b2d_volume_resize/
 
 VirtualBox forward rules
