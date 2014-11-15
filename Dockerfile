@@ -1,8 +1,10 @@
+# CentOS 6
 FROM centos:centos6
 
-# Need to enable centosplus for the image libselinux issue
-RUN yum install -y yum-utils
-RUN yum-config-manager --enable centosplus
+# Do this to enable Oracle Linux
+# wget http://public-yum.oracle.com/docker-images/OracleLinux/OL6/oraclelinux-6.6.tar.xz
+# docker load -i oraclelinux-6.6.tar.xz
+# FROM oraclelinux:6.6
 
 RUN yum -y install hostname.x86_64 rubygems ruby-devel gcc git
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -12,9 +14,9 @@ RUN rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs && \
 
 # configure & install puppet
 RUN yum install -y puppet tar
-RUN gem install librarian-puppet -v 1.0.3
+RUN gem install -y librarian-puppet -v 1.0.3
 
-RUN yum -y install httpd; yum clean all
+RUN yum clean all
 
 ADD puppet/Puppetfile /etc/puppet/
 ADD puppet/manifests/site.pp /etc/puppet/
