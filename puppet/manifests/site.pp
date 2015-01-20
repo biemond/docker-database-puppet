@@ -60,7 +60,6 @@ class oradb_12c {
       oracleBase             => '/oracle',
       oracleHome             => '/oracle/product/12.1/db',
       userBaseDir            => '/home',
-      createUser             => true,
       bashProfile            => false,
       user                   => 'oracle',
       group                  => 'dba',
