@@ -14,6 +14,7 @@ RUN rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs && \
 
 # configure & install puppet
 RUN yum install -y puppet tar
+RUN gem install -y highline -v 1.6.21
 RUN gem install -y librarian-puppet -v 1.0.3
 
 RUN yum clean all
