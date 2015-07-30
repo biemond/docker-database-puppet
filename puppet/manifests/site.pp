@@ -54,7 +54,7 @@ class oradb_12c {
   require oradb_os
 
     oradb::installdb{ '12.1.0.1_Linux-x86-64':
-      version                   => '12.1.0.2',
+      version                   => '12.1.0.1',
       file                      => 'linuxamd64_12c_database',
       database_type             => 'SE',
       oracle_base               => '/oracle',
@@ -65,7 +65,7 @@ class oradb_12c {
       group                     => 'dba',
       group_install             => 'oinstall',
       group_oper                => 'oper',
-      download_dir              => "/var/tmp/install",
+      download_dir              => '/var/tmp/install',
       remote_file               => false,
       puppet_download_mnt_point => '/software',
     }
