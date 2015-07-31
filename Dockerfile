@@ -6,7 +6,7 @@ FROM centos:centos6
 # docker load -i oraclelinux-6.6.tar.xz
 # FROM oraclelinux:6.6
 
-RUN yum -y install hostname.x86_64 rubygems ruby-devel gcc git unzip
+RUN yum -y install hostname.x86_64 rubygems ruby-devel gcc git unzip dos2unix
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
 RUN rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs && \
@@ -41,6 +41,7 @@ RUN puppet apply /etc/puppet/site.pp --verbose --detailed-exitcodes || [ $? -eq 
 EXPOSE 1521
 
 ADD startup.sh /
+RUN dos2unix -o /startup.sh
 RUN chmod 0755 /startup.sh
 
 WORKDIR /

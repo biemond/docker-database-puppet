@@ -15,4 +15,4 @@ echo "Done"
 
 echo "Show all ora processes, should see listener and ora db processes"
 
-ps -ef | grep ora
+ps -ef | grep -i ora
