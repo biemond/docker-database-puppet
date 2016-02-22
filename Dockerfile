@@ -3,7 +3,7 @@ FROM oraclelinux:7
 
 RUN rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs && \
     rpm -ivh http://yum.puppetlabs.com/el/7/products/x86_64/puppetlabs-release-7-11.noarch.rpm && \
-    yum -y install hostname.x86_64 rubygems ruby-devel gcc git unzip && \
+    yum -y install hostname.x86_64 rubygems ruby-devel gcc git unzip dos2unix && \
     echo "gem: --no-ri --no-rdoc" > ~/.gemrc && \
     yum install -y --skip-broken puppet tar && \
     gem install librarian-puppet && \
@@ -32,7 +32,8 @@ RUN chmod -R 777 /software && \
 EXPOSE 1521
 
 ADD startup.sh /
-RUN chmod 0755 /startup.sh
+RUN dos2unix -o /startup.sh && \
+    chmod 0755 /startup.sh
 
 WORKDIR /
 
