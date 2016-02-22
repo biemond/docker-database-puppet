@@ -1,5 +1,4 @@
 #
-
 node 'default' {
   include oradb_os
   include oradb_12c
@@ -53,9 +52,9 @@ class oradb_os {
 class oradb_12c {
   require oradb_os
 
-    oradb::installdb{ '12.1.0.1_Linux-x86-64':
-      version                   => '12.1.0.1',
-      file                      => 'linuxamd64_12c_database',
+    oradb::installdb{ '12.1.0.2_Linux-x86-64':
+      version                   => '12.1.0.2',
+      file                      => 'linuxamd64_12102_database_se2',
       database_type             => 'SE',
       oracle_base               => '/oracle',
       oracle_home               => '/oracle/product/12.1/db',
@@ -76,7 +75,7 @@ class oradb_12c {
       user         => 'oracle',
       group        => 'dba',
       download_dir => "/var/tmp/install",
-      require      => Oradb::Installdb['12.1.0.1_Linux-x86-64'],
+      require      => Oradb::Installdb['12.1.0.2_Linux-x86-64'],
     }
 
     oradb::listener{'start listener':

@@ -1,42 +1,33 @@
-# CentOS 6
-FROM centos:centos6
-
-# Do this to enable Oracle Linux
-# wget http://public-yum.oracle.com/docker-images/OracleLinux/OL6/oraclelinux-6.6.tar.xz
-# docker load -i oraclelinux-6.6.tar.xz
-# FROM oraclelinux:6.6
-
-RUN yum -y install hostname.x86_64 rubygems ruby-devel gcc git unzip
-RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+# Oracle
+FROM oraclelinux:7
 
 RUN rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs && \
-    rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
-
-# configure & install puppet
-RUN yum install -y puppet tar
-RUN gem install -y highline -v 1.6.21
-RUN gem install -y librarian-puppet -v 1.0.3
-
-RUN yum clean all
+    rpm -ivh http://yum.puppetlabs.com/el/7/products/x86_64/puppetlabs-release-7-11.noarch.rpm && \
+    yum -y install hostname.x86_64 rubygems ruby-devel gcc git unzip && \
+    echo "gem: --no-ri --no-rdoc" > ~/.gemrc && \
+    yum install -y --skip-broken puppet tar && \
+    gem install librarian-puppet && \
+    yum clean all
 
 ADD puppet/Puppetfile /etc/puppet/
 ADD puppet/manifests/site.pp /etc/puppet/
 
 WORKDIR /etc/puppet/
-RUN librarian-puppet install
+RUN librarian-puppet install && \
+    mkdir /var/tmp/install && \
+    chmod 777 /var/tmp/install && \
+    mkdir /software
 
-# upload software
-RUN mkdir /var/tmp/install
-RUN chmod 777 /var/tmp/install
+COPY linuxamd64_12102_database_se2_1of2.zip /software/
+COPY linuxamd64_12102_database_se2_2of2.zip /software/
 
-RUN mkdir /software
-
-COPY linuxamd64_12c_database_1of2.zip /software/
-COPY linuxamd64_12c_database_2of2.zip /software/
-
-RUN chmod -R 777 /software
-
-RUN puppet apply /etc/puppet/site.pp --verbose --detailed-exitcodes || [ $? -eq 2 ]
+RUN chmod -R 777 /software && \
+    puppet apply /etc/puppet/site.pp --verbose --detailed-exitcodes || [ $? -eq 2 ] && \
+    rm -rf /software/*  && \
+    rm -rf /var/tmp/install/*  && \
+    rm -rf /var/tmp/*  && \
+    rm -rf /tmp/* && \
+    yum clean all
 
 EXPOSE 1521
 
@@ -44,11 +35,5 @@ ADD startup.sh /
 RUN chmod 0755 /startup.sh
 
 WORKDIR /
-
-# cleanup
-RUN rm -rf /software/*
-RUN rm -rf /var/tmp/install/*
-RUN rm -rf /var/tmp/*
-RUN rm -rf /tmp/*
 
 CMD bash -C '/startup.sh';'bash'
