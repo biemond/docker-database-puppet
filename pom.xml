@@ -19,6 +19,7 @@
                 <configuration>
                     <logDate>default</logDate>
                     <autoPull>true</autoPull>
+                    <verbose>true</verbose>
                     <images>
                         <image>
                             <alias>DB</alias>

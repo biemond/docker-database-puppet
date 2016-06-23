@@ -65,6 +65,6 @@ Check the ipaddress
 - boot2docker ip
 
 ### Mac OSX fusion
-- docker-machine create --driver vmwarefusion --vmwarefusion-disk-size 40960  vm
+- docker-machine create --driver vmwarefusion --vmwarefusion-disk-size 40960 --vmwarefusion-memory-size 2048 vm
 - docker-machine env vm
 
