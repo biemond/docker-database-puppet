@@ -64,7 +64,8 @@ VirtualBox forward rules
 Check the ipaddress
 - boot2docker ip
 
-### Mac OSX fusion
+### Mac OSX
 - docker-machine create --driver vmwarefusion --vmwarefusion-disk-size 40960 --vmwarefusion-memory-size 2048 vm
+- docker-machine create --driver virtualbox --virtualbox-disk-size 40960 --virtualbox-memory 2048 vm
 - docker-machine env vm
 
